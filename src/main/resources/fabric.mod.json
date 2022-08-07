@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "example",
   "version": "${version}",
 
   "name": "Example Mod",
@@ -14,16 +14,19 @@
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "assets/example/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleMod"
+      "net.fabricmc.example.ExampleBiome"
+    ],
+    "terrablender": [
+      "net.fabricmc.example.ExampleBiome"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "example.mixins.json"
   ],
 
   "depends": {
