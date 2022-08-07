@@ -1,12 +1,20 @@
 package com.example.btokencity;
 
 import net.minecraft.data.worldgen.biome.OverworldBiomes;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
 //import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.BiomeManager;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegisterEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jline.utils.Log;
 
 import java.util.Iterator;
@@ -17,15 +25,23 @@ import net.minecraft.world.level.biome.Biome;
 public class OirginalBiome
 {
     public static final String MODID = "originalbiomes";
-    public static Biome biome = OverworldBiomes.theVoid();
+    public static final Logger LOGGER = LogManager.getLogger();
+
+
     public OirginalBiome()
     {
         System.out.println("========================= DebugLog =========================");
 
+        // Register the setup method for modloading
+        IEventBus forgeBus = MinecraftForge.EVENT_BUS;
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+//        MinecraftForge.EVENT_BUS.register(this);
+//        BiomeModInit.BIOME_MODIFIER_SERIALIZERS.register(modEventBus);
 
 
-        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        BrokenCityBiome.BIOMES_REGISTER.register(bus);
+
+////
+        BrokenCityBiome.BIOMES_REGISTER.register(modEventBus);
 //        BiomeManager.addAdditionalOverworldBiomes( BrokenCityBiome.BIOMES_OBJECT.getKey() );
         BiomeManager.addBiome(BiomeManager.BiomeType.WARM, new BiomeManager.BiomeEntry(BrokenCityBiome.BIOMES_OBJECT.getKey(),0));
 
@@ -52,6 +68,16 @@ public class OirginalBiome
 
 
     }
+
+//        @SubscribeEvent
+//        public void register(RegisterEvent event) {
+//        event.register(ForgeRegistries.Keys.BIOMES,
+//                helper -> {
+//                    helper.register(new ResourceLocation(OirginalBiome.MODID, "brokencity"), BrokenCityBiome.jungle() );
+//                }
+//                );
+//
+//        }
 
     private void removeBiome() {
         for (final BiomeManager.BiomeType type : BiomeManager.BiomeType.values()) {
